@@ -152,6 +152,13 @@ function set_host {
         echo "Couldn't find suitable host_ip, please run with --host-ip <external ip>"
         exit 1
     fi
+
+    # added by hai. the public_ip may return "not found"
+    if [[ $host_ip == "not found"]]; then
+        echo "Couldn't find suitable host_ip, please run with --host-ip <external ip>"
+        exit 1
+    fi
+
     echo "Chosen host ip: $host_ip. You can override with --host-ip <external ip>"
 
     if [[ $host_name == "" ]]; then
@@ -731,7 +738,15 @@ function install_dockerfarm {
     check_support
     install_basic_deps ${tsuru_ppa_source-"nightly"}
     set_host
-    dockerhost=$(public_ip)
+    dockerhost=$host_ip
+    echo $dockerhost
+
+    # added by hai. the public_ip may return "not found"
+    if [[ $dockerhost == "not found"]]; then
+        echo "Couldn't find suitable host_ip, please run with --host-ip <external ip>"
+        exit 1
+    fi
+
     install_docker
     install_tsuru_client
     config_tsuru_post
