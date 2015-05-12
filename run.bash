@@ -154,7 +154,7 @@ function set_host {
     fi
 
     # added by hai. the public_ip may return "not found"
-    if [[ $host_ip == "not found"]]; then
+    if [[ $host_ip == "not found" ]]; then
         echo "Couldn't find suitable host_ip, please run with --host-ip <external ip>"
         exit 1
     fi
@@ -742,7 +742,7 @@ function install_dockerfarm {
     echo $dockerhost
 
     # added by hai. the public_ip may return "not found"
-    if [[ $dockerhost == "not found"]]; then
+    if [[ $dockerhost == "not found" ]]; then
         echo "Couldn't find suitable host_ip, please run with --host-ip <external ip>"
         exit 1
     fi
